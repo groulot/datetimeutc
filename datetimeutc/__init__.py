@@ -1,8 +1,8 @@
 import datetime
 import pytz
 
-import utils
-from utils import to_utc
+from . import utils
+from . utils import to_utc
 
 def _get_naive_datetime(*args, **kwargs):
     now = datetime.datetime.now()
