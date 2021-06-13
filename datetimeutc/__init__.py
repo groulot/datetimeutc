@@ -12,9 +12,12 @@ class Datetime(datetime.datetime, utils.datetimeutils):
     'A subclass of datetime.datetime that autoconvert into UTC time'
     
     def __new__(cls, year, month=1, day=1, hour=0, minute=0, second=0, microsecond=0, tzinfo=pytz.UTC):
-        return cls.from_datetime(datetime.datetime(year, month, day,
-                                                   hour, minute, second, microsecond,
-                                                   tzinfo))
+        if isinstance(year, (bytes, str)):
+            return cls.from_datetime(datetime.datetime(year, tzinfo))
+        else:
+            return cls.from_datetime(datetime.datetime(year, month, day,
+                                                       hour, minute, second, microsecond,
+                                                       tzinfo))
     
     @classmethod
     def from_datetime(cls, dt):
